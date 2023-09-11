@@ -1,0 +1,53 @@
+sequence_file = "Bsubtilis.gb"
+
+subtilis_gene_set = set() #NO hay orden y no elementos repetidos, son mas optimos para las busquedas o los dicc
+subtilis_gene_list = [] #coresponde a una lista vacía, vector que contiene info ( Si hay orden y elementos repetidos)
+
+
+with open(sequence_file) as file:
+    for line in file:
+        line = line.rstrip()
+        #print(line)
+        if " /gene=" in line:
+            line = line.lstrip()
+            gene = line[7:-1]
+            print(gene)
+
+            subtilis_gene_set.add(gene)   #para adicionar cosas en un set
+            subtilis_gene_list.append(gene)
+
+
+    pass
+
+
+
+#####
+#genoma Ecoli
+sequence_file = "Ecoli.gb"
+
+Ecoli_gene_set = set() #NO hay orden y no elementos repetidos, son mas optimos para las busquedas o los dicc
+Ecoli_gene_list = [] #coresponde a una lista vacía, vector que contiene info ( Si hay orden y elementos repetidos)
+
+
+with open(sequence_file) as file:
+    for line in file:
+        line = line.rstrip()
+        #print(line)
+        if " /gene=" in line:
+            line = line.lstrip()
+            gene = line[7:-1]
+            print(gene)
+
+            Ecoli_gene_set.add(gene)   #para adicionar cosas en un set
+            Ecoli_gene_list.append(gene)
+
+            diferencia = Ecoli_gene_set. difference(subtilis_gene_set) # para definir las diferencias entre los sets
+            len(diferencia)
+
+            inter = Ecoli_gene_set.intersection(subtilis_gene_set)
+            len(inter)
+
+
+
+
+    pass
