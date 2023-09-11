@@ -1,0 +1,38 @@
+1.2
+import numpy as np #libreria con funciones utiles
+import matplotlib.pyplot as plt #funcion para graficar nombrada como plt 
+###parámetros 
+qf=1/72 # flujo volumétrico de entrada en la corriente 1  [m^3/s]
+q2=1/72  #flujo volumétrico de entrada en la corriente 2  [m^3/s]
+q3=1/36 #flujo volumétrico en la corriente 3  [m^3/s]
+V=100 #volumen del líquido dentro del tanque  [m3]
+Ca2=200 # concentración del compuesto A en la corriente de alimentación 2 [mol/m^3]
+Caf=1000 # concentración del compuesto A en la corriente de alimentación 1 [mol/m^3]
+ 
+###condiciones iniciales
+Ca0=0.0 #[mol/m^3] valor incial de la concentración
+ 
+###vector tiempo 
+t_o=0 #Tiempo inicial [s]
+t_f=36000 #Tiempo final [s]
+dt=0.001 #paso[s]
+iteraciones=round(t_f/dt) #cantidad de puntos a calcular
+t=np.linspace(t_o,t_f,(iteraciones+1))
+ 
+###Ecuación por el método de Euler (ED)
+Ca_dif=np.zeros (iteraciones+1)#vector para guardar los valores de cada iteración
+Ca=Ca0 #asigna el valor inicial
+for i in range (0, iteraciones+1):
+  Ca_dif[i]=Ca #guarda el valor de la concentración
+  dCadt=1/V*(qf*Caf+q2*Ca2-q3*Ca)  #calcula la derivada 
+  Ca=Ca+dCadt*dt #actualiza el valor de la variable segun el metodo de Euler 
+ 
+###graficar resultados 
+plt.figure(1) #abrir figura numero 1
+plt.plot(t,Ca_dif, "m-", label="Cadif") #graficar X hallado por euler
+plt.title ("Concentración de salida del compuesto A (Ca)") #titulo de la grafica 
+plt.xlabel ("Tiempo [s]") #marca eje x
+plt.ylabel (" Ca [mol/m^3]") #marca eje y 
+plt.legend (loc="best")
+plt.grid(True) #Muestra las divisiones de los ejes  
+ 
